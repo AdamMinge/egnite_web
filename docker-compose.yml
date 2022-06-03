@@ -2,7 +2,7 @@ version: "3.8"
 services:
   web:
     build: web
-    command: sh -c "cd egnite; gunicorn config.asgi:application -w 2 -b :8000 -k uvicorn.workers.UvicornWorker"
+    command: sh -c "cd egnite; gunicorn egnite.asgi:application -w 2 -b :8000 -k uvicorn.workers.UvicornWorker"
     volumes:
       - ./web/egnite:/opt/app/egnite/
       - web_static:/opt/app/static

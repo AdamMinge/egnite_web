@@ -14,7 +14,6 @@ CORS_ORIGIN_ALLOW_ALL = env.bool('CORS_ORIGIN_ALLOW_ALL', default=True)
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
-
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -27,16 +26,23 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt.token_blacklist',
     'rest_access_policy',
 
+    'channels',
+    'channels_redis',
+
     'drf_yasg',
     'djchoices',
     'corsheaders',
+
     'health_check',
     'health_check.db',
     'health_check.cache',
     'health_check.storage',
     'health_check.contrib.migrations',
 
-    'apps.core',
+    'egnite.apps.core',
+    'egnite.apps.chat',
+    'egnite.apps.document',
+    'egnite.apps.plugins',
 ]
 
 MIDDLEWARE = [
@@ -107,7 +113,7 @@ TEMPLATES = [
 
 API_KEY_CUSTOM_HEADER = "HTTP_API_KEY"
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'egnite.urls'
 
 STATIC_ROOT = BASE_DIR / 'static/'
 MEDIA_ROOT = BASE_DIR / 'media/'
@@ -116,7 +122,7 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 REDIS_URL = env.str('REDIS_HOST')
 
-WSGI_APPLICATION = 'config.asgi.application'
+ASGI_APPLICATION = 'egnite.asgi.application'
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'

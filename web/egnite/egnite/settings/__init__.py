@@ -9,6 +9,8 @@ base_settings = [
     'components/database.py',
     'components/docs.py',
     'components/email.py',
+    'components/cache.py',
+    'components/channel.py',
 ]
 
 include(*base_settings)
