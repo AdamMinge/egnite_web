@@ -1,5 +1,5 @@
 SWAGGER_SETTINGS = {
-    'DEFAULT_AUTO_SCHEMA_CLASS': 'core.swagger_auto_schema.PermissionsAutoSchema',
+    'DEFAULT_AUTO_SCHEMA_CLASS': 'drf_yasg.inspectors.SwaggerAutoSchema',
     'USE_SESSION_AUTH': False,
     'SECURITY_DEFINITIONS': {
         'api_key': {

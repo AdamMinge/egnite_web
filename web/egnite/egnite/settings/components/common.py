@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_extensions',
+    'django_filters',
     'django_redis',
 
     'rest_framework',
@@ -84,17 +85,17 @@ REST_FRAMEWORK = {
         'rest_framework.throttling.UserRateThrottle'
     ],
     'DEFAULT_THROTTLE_RATES': {
-        'anon': '1/second',
-        'user': '60/second'
+        'anon': '60/minute',
+        'user': '360/minute'
     },
     "DEFAULT_PERMISSION_CLASSES": [
-
+        'egnite.apps.authentication.policies.AuthenticatedAccessPolicy',
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
     'DEFAULT_FILTER_BACKENDS': [
-        'rest_framework_filters.backends.RestFrameworkFilterBackend',
+        'django_filters.rest_framework.DjangoFilterBackend'
     ],
     'DEFAULT_VERSIONING_CLASS': 'rest_framework.versioning.URLPathVersioning',
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
