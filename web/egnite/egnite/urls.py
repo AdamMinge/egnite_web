@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.urls import path, include, re_path
 
 api_urls = [
-    path('', include('egnite.apps.core.urls')),
+    path('', include('egnite.apps.documentation.urls')),
 ]
 
 urlpatterns = [

@@ -10,6 +10,7 @@ SECRET_KEY = env.str('SECRET_KEY', default=urandom(32))
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=[])
 SECURE_SSL_REDIRECT = env.bool('SECURE_SSL_REDIRECT', default=False)
 CORS_ORIGIN_ALLOW_ALL = env.bool('CORS_ORIGIN_ALLOW_ALL', default=True)
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -22,6 +23,7 @@ INSTALLED_APPS = [
     'django_redis',
 
     'rest_framework',
+    'rest_framework_api_key',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'rest_access_policy',
@@ -39,10 +41,11 @@ INSTALLED_APPS = [
     'health_check.storage',
     'health_check.contrib.migrations',
 
-    'egnite.apps.core',
+    'egnite.apps.authentication',
+    'egnite.apps.documentation',
     'egnite.apps.chat',
     'egnite.apps.document',
-    'egnite.apps.plugins',
+    'egnite.apps.plugin',
 ]
 
 MIDDLEWARE = [
@@ -76,11 +79,19 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle'
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '1/second',
+        'user': '60/second'
+    },
     "DEFAULT_PERMISSION_CLASSES": [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+
     ],
     'DEFAULT_FILTER_BACKENDS': [
         'rest_framework_filters.backends.RestFrameworkFilterBackend',

@@ -11,7 +11,8 @@ django.setup()
 from .apps.base.middleware import TokenAuthMiddleware
 from .apps.chat import routing as chat_routing
 from .apps.document import routing as document_routing
-from .apps.plugins import routing as plugins_routing
+from .apps.plugin import routing as plugin_routing
+from .apps.authentication import routing as auth_routing
 
 application = ProtocolTypeRouter({
     'http': get_asgi_application(),
@@ -19,7 +20,8 @@ application = ProtocolTypeRouter({
         TokenAuthMiddleware(
             URLRouter([*chat_routing.websocket_urlpatterns,
                        *document_routing.websocket_urlpatterns,
-                       *plugins_routing.websocket_urlpatterns])
+                       *plugin_routing.websocket_urlpatterns,
+                       *auth_routing.websocket_urlpatterns])
         ),
     )
 })
