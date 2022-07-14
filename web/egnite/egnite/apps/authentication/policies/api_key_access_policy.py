@@ -1,11 +1,20 @@
 from rest_access_policy import AccessPolicy
-from rest_framework_api_key.permissions import HasAPIKey
+
+from ..permissions import HasOrganizationAPIKey
 
 
 class APIKeyAccessPolicy(AccessPolicy):
+    statements = [
+        {
+            "action": ["*"],
+            "principal": ["*"],
+            "effect": "allow",
+        },
+    ]
+
     def __init__(self):
         super().__init__()
-        self.has_organization_api_key = HasAPIKey()
+        self.has_organization_api_key = HasOrganizationAPIKey()
 
     def has_permission(self, request, view):
         return self.has_organization_api_key.has_permission(request, view) and \
